@@ -9,29 +9,30 @@
 pool:
   name: Azure Pipelines
   vmImage: 'ubuntu-latest'
+variables:
+- group: 'Secrets'
+- group: 'Subscription'
 steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
   displayName: 'Use Terraform 0.12.6'
   inputs:
     terraformVersion: 0.12.6
-
-- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-  displayName: 'terraform init'
-  inputs:
-    command: init
-
-- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-  displayName: 'terraform plan'
-  inputs:
-    command: plan
-    environmentServiceName: 'Visual Studio Enterprise – MPN (59eb3dff-9caf-469f-838a-b026eb67cd85)'
-    secureVarsFile: '74ae6846-1a1a-4d9d-9d69-cca1f68352d4'
-
-- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-  displayName: 'terraform apply'
-  inputs:
-    command: apply
-    environmentServiceName: 'Visual Studio Enterprise – MPN (59eb3dff-9caf-469f-838a-b026eb67cd85)'
-    secureVarsFile: '74ae6846-1a1a-4d9d-9d69-cca1f68352d4'
-    commandOptions: '-input=false'
-
+- script: |
+   az login --service-principal -u $(tfsp-id) -p $(tfsp-secret) --tenant $(tenant_id)
+   ACCESS_KEY=`az storage account keys list -n $(storage_acct) -o json | jq -r '.[0].value'`
+   echo "##vso[task.setvariable variable=ACCESS_KEY]$ACCESS_KEY"
+  displayName: 'AZ Login and Set ACCESS_KEY'
+- script: |
+   cat << EOT >> terraform.tfvars
+   access_key = "$(ACCESS_KEY)"
+   tenant_id = "$(tenant_id)"
+   subscription_id = "$(subscription_id)"
+   client_id = "$(tfsp-id)"
+   client_secret = "$(tfsp-secret)"
+   EOT
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Create terraform.tfvars'
+- script: |
+   terraform validate -check-variables=false
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Terraform Validate'
