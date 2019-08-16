@@ -40,7 +40,7 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
 - script: |
-   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
+   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -no-color -input=false
    terraform plan -out=tfplan -no-color -input=false
   displayName: 'Terraform Plan'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
