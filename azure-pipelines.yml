@@ -33,6 +33,9 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
 - script: |
+   terraform init
+  displayName: 'Terraform Init'
+- script: |
    terraform validate
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
