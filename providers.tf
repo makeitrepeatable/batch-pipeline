@@ -9,6 +9,6 @@ terraform {
   backend "azurerm" {
     storage_account_name = "scollinstfstate"
     container_name       = "state"
-    key                  = "${var.account_key}"
+    key                  = ""
   }
 }
