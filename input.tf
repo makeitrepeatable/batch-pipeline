@@ -26,3 +26,7 @@ variable "prefix" {
 variable "thumbprint" {
     type = "string"
 }
+
+variable "access_key" {
+    type = "string"
+}

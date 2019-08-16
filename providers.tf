@@ -4,3 +4,11 @@ provider "azurerm" {
 	client_secret 		= "${var.client_secret}"
 	tenant_id 			= "${var.tenant_id}"
 }
+
+terraform {
+  backend "azurerm" {
+    storage_account_name = "scollinstfstate"
+    container_name       = "state"
+    key                  = "${var.account_key}"
+  }
+}
