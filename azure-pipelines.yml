@@ -7,13 +7,30 @@
 #- master
 
 pool:
-  vmImage: 'ubuntu-latest'
-
+  name: Azure Pipelines
 steps:
-- task: TerraformInstaller@0
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform 0.12.6'
   inputs:
-    terraformVersion: '0.12.6'
-- script: 'terraform init'
-  displayName: 'Terraform init'
-- script: 'terraform plan'
-  displayName: 'Terraform plan'
+    terraformVersion: 0.12.6
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    command: init
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    environmentServiceName: 'Visual Studio Enterprise – MPN (59eb3dff-9caf-469f-838a-b026eb67cd85)'
+    secureVarsFile: '74ae6846-1a1a-4d9d-9d69-cca1f68352d4'
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    environmentServiceName: 'Visual Studio Enterprise – MPN (59eb3dff-9caf-469f-838a-b026eb67cd85)'
+    secureVarsFile: '74ae6846-1a1a-4d9d-9d69-cca1f68352d4'
+    commandOptions: '-input=false'
+
