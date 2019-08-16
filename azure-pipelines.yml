@@ -24,7 +24,6 @@ steps:
   displayName: 'AZ Login and Set ACCESS_KEY'
 - script: |
    cat << EOT >> terraform.tfvars
-   access_key = "$(ACCESS_KEY)"
    tenant_id = "$(tenant_id)"
    subscription_id = "$(subscription_id)"
    client_id = "$(tfsp-id)"
