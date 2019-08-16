@@ -16,7 +16,7 @@ steps:
 - task: JamiePhillips.Terraform.TerraformTool.TerraformTool@0
   displayName: 'Use Terraform $(terraform.version)'
   inputs:
-    version: '$(terraform.version)'
+    version: '0.12.6'
 - script: |
    az login --service-principal -u $(tfsp-id) -p $(tfsp-secret) --tenant $(tenant_id)
    ACCESS_KEY=`az storage account keys list -n $(storage_acct) -o json | jq -r '.[0].value'`
@@ -30,14 +30,15 @@ steps:
    client_id = "$(tfsp-id)"
    client_secret = "$(tfsp-secret)"
    EOT
-  workingDirectory: '$(terraform.path)'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
 - script: |
    terraform init
   displayName: 'Terraform Init'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |
    terraform validate
-  workingDirectory: '$(terraform.path)'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
 - script: |
    terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
