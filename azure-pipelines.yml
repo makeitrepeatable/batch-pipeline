@@ -33,6 +33,6 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
 - script: |
-   terraform validate -check-variables=false
+   terraform validate
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
