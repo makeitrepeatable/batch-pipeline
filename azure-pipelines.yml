@@ -15,3 +15,5 @@ steps:
     terraformVersion: '0.12.6'
 - script: 'terraform init'
   displayName: 'Terraform init'
+- script: 'terraform plan'
+    displayName: 'terraform plan'
