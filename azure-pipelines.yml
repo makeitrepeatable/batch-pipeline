@@ -16,4 +16,4 @@ steps:
 - script: 'terraform init'
   displayName: 'Terraform init'
 - script: 'terraform plan'
-    displayName: 'terraform plan'
+  displayName: 'Terraform plan'
