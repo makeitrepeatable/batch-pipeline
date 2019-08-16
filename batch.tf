@@ -30,6 +30,7 @@ resource "azurerm_batch_account" "batchAccount1" {
   }
 }
 
+/*
 resource "azurerm_batch_certificate" "batchCert" {
   resource_group_name  = "${azurerm_resource_group.batchRG.name}"
   account_name         = "${azurerm_batch_account.batchAccount1.name}"
@@ -39,7 +40,7 @@ resource "azurerm_batch_certificate" "batchCert" {
   thumbprint_algorithm = "SHA1"
   password             = "${var.password}"
 }
-
+*/
 
 resource "azurerm_batch_pool" "batchPool1" {
   name                = "pool1"
@@ -78,33 +79,5 @@ resource "azurerm_batch_pool" "batchPool1" {
     version   = "latest"
   }
 
-/*
-  container_configuration {
-    type = "DockerCompatible"
-  }
-
-  start_task {
-    command_line         = "echo 'Hello World from $env'"
-    max_task_retry_count = 1
-    wait_for_success     = true
-
-    environment = {
-      env = "Dev"
-    }
-
-    user_identity {
-      auto_user {
-        elevation_level = "NonAdmin"
-        scope           = "Task"
-      }
-    }
-  }
-  */
-
-  certificate {
-    id         = "${azurerm_batch_certificate.batchCert.id}"
-    visibility = ["StartTask"]
-    store_location = "LocalMachine"
-  }
 }
 
