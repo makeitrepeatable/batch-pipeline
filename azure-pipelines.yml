@@ -33,7 +33,9 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
 - pwsh: |
-  get-content -Path .\terraform.tfvars
+  get-content -Path '.\terraform.tfvars'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Print tfvars for validation'
 - script: |
    terraform init
   displayName: 'Terraform Init'
