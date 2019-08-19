@@ -56,6 +56,6 @@ steps:
 - script: |
    az batch account login `
    -n $(ACCOUNT_NAME)`
-   -g batch
+   --resource-group "Batch" `
    --shared-key-auth
   displayName: 'Login to the new batch account'
