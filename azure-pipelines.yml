@@ -51,3 +51,4 @@ steps:
   displayName: 'Get TF output and set to vars'
 - script: |
    echo "$(ACCOUNT_ID)"
+   displayName: 'Echo account id'
