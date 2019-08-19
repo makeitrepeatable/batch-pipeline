@@ -3,9 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-#trigger:
-#- master
-
 pool:
   name: Azure Pipelines
   vmImage: 'ubuntu-16.04'
@@ -41,12 +38,16 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
 - script: |
-   #terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
    terraform plan -out=tfplan -no-color -input=false
   displayName: 'Terraform Plan'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |
-   #terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
    terraform apply -auto-approve
   displayName: 'Terraform Apply'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
+- script: |
+   ACCOUNT_ID=`terraform output batch_account_id`
+   echo "##vso[task.setvariable variable=ACCESS_KEY]$ACCESS_KEY"
+  displayName: 'Get TF output and set to vars'
+- script: |
+   echo "$(ACCOUNT_ID)"

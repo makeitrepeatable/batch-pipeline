@@ -30,18 +30,6 @@ resource "azurerm_batch_account" "batchAccount1" {
   }
 }
 
-/*
-resource "azurerm_batch_certificate" "batchCert" {
-  resource_group_name  = "${azurerm_resource_group.batchRG.name}"
-  account_name         = "${azurerm_batch_account.batchAccount1.name}"
-  certificate          = "${filebase64("server.pfx")}"
-  format               = "Pfx"
-  thumbprint           = "${var.thumbprint}"
-  thumbprint_algorithm = "SHA1"
-  password             = "${var.password}"
-}
-*/
-
 resource "azurerm_batch_pool" "batchPool1" {
   name                = "pool1"
   resource_group_name = "${azurerm_resource_group.batchRG.name}"
