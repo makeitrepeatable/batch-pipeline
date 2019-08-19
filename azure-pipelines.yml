@@ -25,10 +25,10 @@ steps:
 - script: |
    cat << EOT >> terraform.tfvars
    access_key = "$(ACCESS_KEY)"
-   tenant_id = "$(TF_VAR_tenant_id)"
-   subscription_id = "$(TF_VAR_subscription_id)"
-   client_id = "$(TF_VAR_client_id)"
-   client_secret = "$(TF_VAR_Client_Secret)"
+   tenant_id = "$(tenant_id)"
+   subscription_id = "$(subscription_id)"
+   client_id = "$(client_id)"
+   client_secret = "$(Client_Secret)"
    EOT
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
@@ -37,7 +37,7 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Print tfvars for validation'
 - script: |
-   terraform init
+   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=terraform.tfvars -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
   displayName: 'Terraform Init'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |
@@ -45,7 +45,7 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Terraform Validate'
 - script: |
-   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
+   #terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
    terraform plan -out=tfplan -no-color -input=false
   displayName: 'Terraform Plan'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
