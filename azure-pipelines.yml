@@ -8,7 +8,7 @@
 
 pool:
   name: Azure Pipelines
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 variables:
 - group: 'Secrets'
 - group: 'Subscription'
