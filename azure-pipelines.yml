@@ -25,10 +25,10 @@ steps:
 - script: |
    cat << EOT >> terraform.tfvars
    access_key = "$(ACCESS_KEY)"
-   tenant_id = "$(tenant_id)"
-   subscription_id = "$(subscription_id)"
-   client_id = "$(tfsp-id)"
-   client_secret = "$(tfsp-secret)"
+   tenant_id = "$(TF_VAR_tenant_id)"
+   subscription_id = "$(TF_VAR_subscription_id)"
+   client_id = "$(TF_VAR_client_id)"
+   client_secret = "$(TF_VAR_Client_Secret)"
    EOT
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'

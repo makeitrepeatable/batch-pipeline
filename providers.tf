@@ -7,7 +7,7 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    storage_account_name = "scollinstfstate"
+    storage_account_name = "__TF_VAR_storage_acct__"
     container_name       = "state"
     key                  = "terraform.tfstate"
 	access_key			 = "__access_key__"
