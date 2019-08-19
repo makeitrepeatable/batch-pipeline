@@ -47,8 +47,8 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |
    ACCOUNT_ID=`terraform output batch_account_id`
-   echo "##vso[task.setvariable variable=ACCESS_KEY]$ACCESS_KEY"
+   echo "##vso[task.setvariable variable=ACCOUNT_ID]$ACCOUNT_ID"
   displayName: 'Get TF output and set to vars'
 - script: |
    echo "$(ACCOUNT_ID)"
-   displayName: 'Echo account id'
+  displayName: 'Echo account id'
