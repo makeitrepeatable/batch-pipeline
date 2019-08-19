@@ -16,7 +16,7 @@ steps:
 - task: JamiePhillips.Terraform.TerraformTool.TerraformTool@0
   displayName: 'Use Terraform $(terraform.version)'
   inputs:
-    version: '0.12.0'
+    version: '0.11.12'
 - script: |
    az login --service-principal -u $(tfsp-id) -p $(tfsp-secret) --tenant $(tenant_id)
    ACCESS_KEY=`az storage account keys list -n $(storage_acct) -o json | jq -r '.[0].value'`
