@@ -32,12 +32,8 @@ steps:
    EOT
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
-- pwsh: |
-   get-content -Path ".\terraform.tfvars"
-  workingDirectory: '$(System.DefaultWorkingDirectory)'
-  displayName: 'Print tfvars for validation'
 - script: |
-   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=terraform.tfvars -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
+   terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=output.tfstate -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
   displayName: 'Terraform Init'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |

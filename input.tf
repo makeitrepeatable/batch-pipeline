@@ -19,16 +19,6 @@ variable "prefix" {
     default     = "tf-"
 }
 
-/*
-variable "thumbprint" {
-    type = "string"
-}
-
-variable "password" {
-    type = "string"
-}
-
-*/
 variable "access_key" {
     type = "string"
 }
