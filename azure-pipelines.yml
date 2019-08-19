@@ -32,6 +32,8 @@ steps:
    EOT
   workingDirectory: '$(System.DefaultWorkingDirectory)'
   displayName: 'Create terraform.tfvars'
+- pwsh: |
+  get-content -Path .\terraform.tfvars
 - script: |
    terraform init
   displayName: 'Terraform Init'
