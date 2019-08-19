@@ -14,19 +14,21 @@ variable "client_secret" {
     type = "string"
 }
 
-variable "password" {
-    type = "string"
-}
-
 variable "prefix" {
     type        = "string"
     default     = "tf-"
 }
 
+/*
 variable "thumbprint" {
     type = "string"
 }
 
+variable "password" {
+    type = "string"
+}
+
+*/
 variable "access_key" {
     type = "string"
 }
