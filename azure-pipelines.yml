@@ -47,6 +47,6 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 - script: |
    #terraform init -backend-config=resource_group_name=$(resource_group) -backend-config=storage_account_name=$(storage_acct) -backend-config=container_name=state -backend-config=key=$(state.key) -backend-config=access_key=$(ACCESS_KEY) -no-color -input=false
-   terraform apply -input=false
+   terraform apply -auto-approve
   displayName: 'Terraform Apply'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
