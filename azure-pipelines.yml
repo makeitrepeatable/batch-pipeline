@@ -55,7 +55,7 @@ steps:
   displayName: 'Get TF output and set to vars'
 - script: |
    az batch account login `
-   --n $(ACCOUNT_NAME)`
-   --g batch
+   -n $(ACCOUNT_NAME)`
+   -g batch
    --shared-key-auth
   displayName: 'Login to the new batch account'
