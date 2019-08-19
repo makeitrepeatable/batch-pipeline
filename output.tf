@@ -3,11 +3,11 @@ output "batch_account_id" {
 }
 
 output "batch_account_name" {
-    value = "${azurerm_batch_account.batchAccount1.batch_account_name}"
+    value = "${azurerm_batch_account.batchAccount1.name}"
 }
 
 output "batch_pool_name" {
-    value = "${azurerm_batch_pool.batchPool1.batch_pool_name}"
+    value = "${azurerm_batch_pool.batchPool1.name}"
 }
 
 output "batch_access_key" {
