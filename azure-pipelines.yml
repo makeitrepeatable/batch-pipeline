@@ -53,4 +53,3 @@ steps:
    echo "##vso[task.setvariable variable=ACCOUNT_NAME]$ACCOUNT_NAME"`
    echo "##vso[task.setvariable variable=POOL_NAME]$POOL_NAME"
   displayName: 'Get TF output and set to vars'
-
