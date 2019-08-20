@@ -1,7 +1,7 @@
 [![Build Status](https://dev.azure.com/scottcollins87/batch-pipeline/_apis/build/status/scollins87.batch-pipeline?branchName=master)](https://dev.azure.com/scottcollins87/batch-pipeline/_build/latest?definitionId=5&branchName=master)
 
 # Azure Batch demo
-Code to use Azure DevOps pipeline to privision a batch account, a batch pool, & create a single job containing a number of tasks using Terraform.
+Code to use Azure DevOps pipeline to provision a batch account, a batch pool, & create a single job containing a number of tasks using Terraform.
 
 # Prerequisites
 * Service Principal
