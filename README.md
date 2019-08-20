@@ -3,16 +3,16 @@
 # Azure Batch demo
 Code to use Azure DevOps pipeline to provision a batch account, a batch pool, & create a single job containing a number of tasks using Terraform.
 
-# Prerequisites
+## Prerequisites
 * Service Principal
 * Key Vault
 * Storage account
 
-# Secrets
+## Secrets
 The Azure DevOps pipeline gets all secrets from an Azure KeyVault. Although this example uses YAML to define the pipeline, a variable group will need to be created in the GUI to allow it to pull secrets from a KeyVault - At the time of writing there's no way to do this programmatically.
 
 
-# The Terraform
+## The Terraform
 The Terraform takes the following inputs:
 
 | Name        | Type          | Description |
@@ -24,7 +24,7 @@ The Terraform takes the following inputs:
 | Access_Key | string      |    Access key for the storage account used to hold TF state|
 
 
-# Batch pool auto-scale configuration
+## Batch pool auto-scale configuration
 I used an example from the official documentation to scale the batch pool based on the number of active tasks. This will set the minimum number of nodes in the pool to 0. The max is configurable by setting the ```cappedPoolSize``` variable. I set mine to 20 because it lit Batch Explorer up quite nicely.
 
 
@@ -33,7 +33,7 @@ I set the ```evaluation_interval``` to PT5M (5 minutes) to ensure that my nodes 
 Other examples can be found [here](https://docs.microsoft.com/en-gb/azure/batch/batch-automatic-scaling).
 
 
-# Pipeline definition
+## Pipeline definition
 I started by disabling the trigger - I didn't want a new build to be triggered with every commit:
 
 ```YAML
