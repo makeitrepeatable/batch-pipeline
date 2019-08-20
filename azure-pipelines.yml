@@ -59,3 +59,12 @@ steps:
 - script: |
    az batch job create --id myjob --pool-id $(POOL_NAME)
   displayName: 'Create a new batch job'
+- script: |
+   for i in {1..4}
+   do
+   az batch task create \
+    --task-id mytask$i \
+    --job-id myjob \
+    --command-line "/bin/bash -c 'printenv | grep AZ_BATCH; sleep 90s'"
+   done
+  displayName: 'Create dummy tasks'
