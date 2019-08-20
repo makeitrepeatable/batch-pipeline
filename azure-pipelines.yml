@@ -57,14 +57,15 @@ steps:
    az batch account login -n $(ACCOUNT_NAME) -g Batch --shared-key-auth
   displayName: 'Login to the new batch account'
 - script: |
-   az batch job create --id myjob --pool-id $(POOL_NAME)
+   timestamp=date +"%T"
+   az batch job create --id timestamp --pool-id $(POOL_NAME)
   displayName: 'Create a new batch job'
 - script: |
    for i in {1..4}
    do
    az batch task create \
     --task-id mytask$i \
-    --job-id myjob \
+    --job-id timestamp \
     --command-line "/bin/bash -c 'printenv | grep AZ_BATCH; sleep 90s'"
    done
   displayName: 'Create dummy tasks'
