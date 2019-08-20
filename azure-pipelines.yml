@@ -57,7 +57,7 @@ steps:
    az batch account login -n $(ACCOUNT_NAME) -g Batch --shared-key-auth
   displayName: 'Login to the new batch account'
 - script: |
-   timestamp=date +"%T"
+   timestamp=`date +"%T"`
    az batch job create --id timestamp --pool-id $(POOL_NAME)
   displayName: 'Create a new batch job'
 - script: |
