@@ -70,7 +70,3 @@ steps:
     --command-line "/bin/bash -c 'printenv | grep AZ_BATCH; sleep 90s'"
    done
   displayName: 'Create dummy tasks'
-- script: |
-   terraform destroy
-  displayName: 'Destroy once done'
-  workingDirectory: $(System.DefaultWorkingDirectory)
