@@ -1,29 +1,29 @@
 resource "random_string" "random" {
-  length        = 12
-  special       = false
-  lower         = true
-  upper         = false
+  length  = 12
+  special = false
+  lower   = true
+  upper   = false
 }
 
 resource "azurerm_resource_group" "batchRG" {
-  name          = "Batch"
-  location      = "westeurope"
+  name     = "Batch"
+  location = "westeurope"
 }
 
 resource "azurerm_storage_account" "batchStorage" {
-  name                        = "azbatch${random_string.random.result}"
-  resource_group_name         = "Storage"
-  location                    = "${azurerm_resource_group.batchRG.location}"
-  account_tier                = "Standard"
-  account_replication_type    = "LRS"
+  name                     = "azbatch${random_string.random.result}"
+  resource_group_name      = "Storage"
+  location                 = "${azurerm_resource_group.batchRG.location}"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
 resource "azurerm_batch_account" "batchAccount1" {
-  name                    = "azbatch${random_string.random.result}"
-  resource_group_name     = "${azurerm_resource_group.batchRG.name}"
-  location                = "${azurerm_resource_group.batchRG.location}"
-  pool_allocation_mode    = "BatchService"
-  storage_account_id      = "${azurerm_storage_account.batchStorage.id}"
+  name                 = "azbatch${random_string.random.result}"
+  resource_group_name  = "${azurerm_resource_group.batchRG.name}"
+  location             = "${azurerm_resource_group.batchRG.location}"
+  pool_allocation_mode = "BatchService"
+  storage_account_id   = "${azurerm_storage_account.batchStorage.id}"
 
   tags = {
     env = "Dev"
