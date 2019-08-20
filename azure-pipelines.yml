@@ -62,7 +62,7 @@ steps:
    az batch job create --id $TIMESTAMP --pool-id $(POOL_NAME)
   displayName: 'Create a new batch job'
 - script: |
-   for i in {1..10}
+   for i in {1..40}
    do
    az batch task create \
     --task-id mytask$i \
