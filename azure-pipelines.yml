@@ -49,8 +49,24 @@ steps:
    ACCOUNT_ID=`terraform output batch_account_id`
    ACCOUNT_NAME=`terraform output batch_account_name`
    POOL_NAME=`terraform output batch_pool_name`
-   echo "##vso[task.setvariable variable=ACCOUNT_ID]$ACCOUNT_ID"`
-   echo "##vso[task.setvariable variable=ACCOUNT_NAME]$ACCOUNT_NAME"`
+   echo "##vso[task.setvariable variable=ACCOUNT_ID]$ACCOUNT_ID"
+   echo "##vso[task.setvariable variable=ACCOUNT_NAME]$ACCOUNT_NAME"
    echo "##vso[task.setvariable variable=POOL_NAME]$POOL_NAME"
   displayName: 'Get TF output and set to vars'
-
+- script: |
+   az batch account login -n $(ACCOUNT_NAME) -g Batch --shared-key-auth
+  displayName: 'Login to the new batch account'
+- script: |
+   TIMESTAMP=`date +%s`
+   echo "##vso[task.setvariable variable=TIMESTAMP]$TIMESTAMP"
+   az batch job create --id $TIMESTAMP --pool-id $(POOL_NAME)
+  displayName: 'Create a new batch job'
+- script: |
+   for i in {1..40}
+   do
+   az batch task create \
+    --task-id mytask$i \
+    --job-id $TIMESTAMP \
+    --command-line "/bin/bash -c 'printenv | grep AZ_BATCH; sleep 90s'"
+   done
+  displayName: 'Create dummy tasks'

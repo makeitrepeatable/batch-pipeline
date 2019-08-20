@@ -53,7 +53,7 @@ resource "azurerm_batch_pool" "batchPool1" {
                   // If number of pending tasks is not 0, set targetVM to pending tasks, otherwise half of current dedicated.
                   $targetVMs = $tasks > 0 ? $tasks : max(0, $TargetDedicatedNodes / 2);
                   // The pool size is capped at 20, if target VM value is more than that, set it to 20. This value should be adjusted according to your use case.
-                  cappedPoolSize = 5;
+                  cappedPoolSize = 20;
                   $TargetDedicatedNodes = max(0, min($targetVMs, cappedPoolSize));
                   // Set node deallocation mode - keep nodes active only until tasks finish
                   $NodeDeallocationOption = taskcompletion;
