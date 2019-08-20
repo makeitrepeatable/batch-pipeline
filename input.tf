@@ -14,11 +14,6 @@ variable "client_secret" {
     type = "string"
 }
 
-variable "prefix" {
-    type        = "string"
-    default     = "tf-"
-}
-
 variable "access_key" {
     type = "string"
 }

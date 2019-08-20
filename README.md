@@ -16,7 +16,7 @@ The Azure DevOps pipeline gets all secrets from an Azure KeyVault. Although this
 The Terraform takes the following inputs:
 
 | Name        | Type          | Description |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:|:------:|
 | Subscription_ID      | string | Azure subscription ID |
 | Tenant_ID      | string      |   Azure tenant ID |
 | Client_ID | string      |SPN Client ID (App ID)|
@@ -27,13 +27,14 @@ The Terraform takes the following inputs:
 # Batch pool auto-scale configuration
 I used an example from the official documentation to scale the batch pool based on the number of active tasks. This will set the minimum number of nodes in the pool to 0. The max is configurable by setting the ```cappedPoolSize``` variable. I set mine to 20 because it lit Batch Explorer up quite nicely.
 
+
 I set the ```evaluation_interval``` to PT5M (5 minutes) to ensure that my nodes weren't running for longer than they needed to.
 
 Other examples can be found [here](https://docs.microsoft.com/en-gb/azure/batch/batch-automatic-scaling).
 
 
 # Pipeline definition
-I started by disabling the trigger - I didn't want a new build to be triggered with every commmit:
+I started by disabling the trigger - I didn't want a new build to be triggered with every commit:
 
 ```YAML
 trigger: none
@@ -47,7 +48,7 @@ pool:
   vmImage: 'ubuntu-16.04'
 ```
 
-Then I set the variable groups I mentioned earlier. I have two groups, one for vaules pulled from my KeyVault, the other for non-secret values (Storage account name, subscription ID etc.):
+Then I set the variable groups I mentioned earlier. I have two groups; one for values pulled from my KeyVault, the other for non-secret values (Storage account name, subscription ID etc.):
 
 ```YAML
 variables:
@@ -55,7 +56,7 @@ variables:
 - group: 'Subscription'
 ```
 
-Once the pipeline configuration steps are complete, I needed to start defining what the pipeline actually _did_. I started by aking sure that Terraform was installed on the agent. For this, I used a Marketplace task:
+Once the pipeline configuration steps were complete, I needed to start defining what the pipeline actually _did_. I started by making sure that Terraform was installed on the agent. For this, I used a Marketplace task:
 
 ```YAML
 steps:
