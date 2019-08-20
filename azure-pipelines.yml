@@ -54,8 +54,5 @@ steps:
    echo "##vso[task.setvariable variable=POOL_NAME]$POOL_NAME"
   displayName: 'Get TF output and set to vars'
 - script: |
-   az batch account login `
-   -n $(ACCOUNT_NAME)`
-   --resource-group Batch`
-   --shared-key-auth
+   az batch account login -n $(ACCOUNT_NAME) -g Batch --shared-key-auth
   displayName: 'Login to the new batch account'
