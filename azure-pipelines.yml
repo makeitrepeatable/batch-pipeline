@@ -58,6 +58,7 @@ steps:
   displayName: 'Login to the new batch account'
 - script: |
    TIMESTAMP=`date +%s`
+   echo "##vso[task.setvariable variable=TIMESTAMP]$TIMESTAMP"
    az batch job create --id $TIMESTAMP --pool-id $(POOL_NAME)
   displayName: 'Create a new batch job'
 - script: |
