@@ -50,9 +50,9 @@ steps:
    ACCOUNT_NAME=`terraform output batch_account_name`
    POOL_NAME=`terraform output batch_pool_name`
    echo "##vso[task.setvariable variable=ACCOUNT_ID]$ACCOUNT_ID"`
-   echo "##vso[task.setvariable variable=ACCOUNT_NAME]$ACCOUNT_NAME"`
+   echo "##vso[task.setvariable variable=BATCH_ACCOUNT_NAME]$BATCH_ACCOUNT_NAME"`
    echo "##vso[task.setvariable variable=POOL_NAME]$POOL_NAME"
   displayName: 'Get TF output and set to vars'
 - script: |
-   az batch account login -n $(ACCOUNT_NAME) -g Batch --shared-key-auth
+   az batch account login -n $(BATCH_ACCOUNT_NAME) -g Batch --shared-key-auth
   displayName: 'Login to the new batch account'
